@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/proyectonoticia/cargadores/Autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/PROYECTONOTICIAS/cargadores/Autoload.php';
 Autoload::autoload();
 
 // Recibir datos POST en formato JSON
@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
-        $perfil = DbPerfil::FindById($id);
+        $perfil = Db_perfil::FindById($id);
 
         $perfilApi = new stdClass();
 
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 }
 
-// Update
+// ACTUALIZAR
 if ($_SERVER["REQUEST_METHOD"] == "PUT") {
     $id = isset($_GET["id"]) ? $_GET["id"] : null;
 
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "PUT") {
         if ($perfilActualizado) {
             $perfilActualizado->setNombre($valor);
 
-            DbPerfil::UpdateById($id, $perfilActualizado);
+            Db_perfil::UpdateById($id, $perfilActualizado);
             echo "Perfil actualizado";
         } else {
             echo "Error: No se encontró el perfil con el ID proporcionado.";
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "PUT") {
     }
 }
 
-// Delete
+// Borrar
 if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
     
     if (isset($_GET["id"])) {
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
     }
 }
 
-// Add
+// insertar
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $objeto = file_get_contents("php://input");
     $perfil = json_decode($objeto);
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nuevoPerfil = new Perfil(
             null,
             $perfil->nombre ?? ''
-            // Add other properties as needed
+            
         );
 
         Db_perfil::Insert($nuevoPerfil);

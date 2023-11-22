@@ -4,7 +4,7 @@ class Autoload
         public static function autoload()
         {
             spl_autoload_register(function($clase) {
-                $baseDir = $_SERVER['DOCUMENT_ROOT'] . '/proyectonoticia/';
+                $baseDir = $_SERVER['DOCUMENT_ROOT'] . '/PROYECTONOTICIAS/';
                 $directorios = [
                     'apis',
                     'cargadores',
@@ -14,7 +14,8 @@ class Autoload
                     'helper',
                     'Repositorio',
                     'Vistas',
-                    'recursos'
+                    'recursos',
+                    'js'
                 ];
     
                 foreach ($directorios as $directorio) {

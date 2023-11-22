@@ -82,5 +82,14 @@ class Db_perfil {
         
         return ["success" => "Noticia añadida"];
     }
+    
+    public static function DeleteById($id) {
+        $conexion = Db::AbreConexion();
+        $query = "DELETE FROM perfil WHERE id = :id";
+        $statement = $conexion->prepare($query);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
+    }
+    
 }
 ?>
